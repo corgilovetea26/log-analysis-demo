@@ -7,6 +7,10 @@ Nhóm 8: Xây dựng Log Analysis Assisstant & AI DevOps Assisstant
 - Ứng dụng AI trên Grafana Cloud để tự động phân tích telemetry, tóm tắt sự cố và gợi ý hướng xử lý ban đầu.
 - Mục tiêu là giảm thời gian điều tra lỗi, hỗ trợ team mới hiểu hệ thống nhanh hơn, và tạo trải nghiệm AI assistant trên dữ liệu quan sát thực tế.
 
+## Thành viên:
+Hoàng Lương Mạnh Cường - 20251194M
+Hồ Tuấn Long - 20251232M
+
 ## Thông tin project
 - Repository: https://github.com/corgilovetea26/log-analysis-demo
 
