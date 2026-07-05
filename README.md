@@ -1,11 +1,11 @@
-# Log Analysis Assistant - OpenTelemetry Demo Fork
-
 ## Tổng quan
-Đây là bản fork của OpenTelemetry Astronomy Shop được tùy chỉnh cho bài toán CNPM:
+Nhóm 8: Xây dựng Log Analysis Assisstant & AI DevOps Assisstant
 
 - Chạy ứng dụng microservices ecommerce demo.
 - Thu thập telemetry (traces, metrics, logs, profiles) bằng OpenTelemetry.
 - Gửi dữ liệu giám sát lên Grafana Cloud thông qua OTel Collector local.
+- Ứng dụng AI trên Grafana Cloud để tự động phân tích telemetry, tóm tắt sự cố và gợi ý hướng xử lý ban đầu.
+- Mục tiêu là giảm thời gian điều tra lỗi, hỗ trợ team mới hiểu hệ thống nhanh hơn, và tạo trải nghiệm AI assistant trên dữ liệu quan sát thực tế.
 
 ## Thông tin project
 - Repository: https://github.com/corgilovetea26/log-analysis-demo
