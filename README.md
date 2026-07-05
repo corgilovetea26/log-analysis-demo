@@ -1,6 +1,64 @@
 <!-- markdownlint-disable-next-line -->
 # <img src="https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png" alt="OTel logo" width="45"> OpenTelemetry Demo
 
+## Project Notes (ai_cnpm)
+
+This fork is used for CNPM log-analysis and observability practice.
+
+- Repository URL: https://github.com/corgilovetea26/log-analysis-demo
+- Local project path: /Users/manhcuongizme/develop/hust/cnpm/opentelemetry-demo
+- Runtime mode in this setup: run app without local observability stack, send telemetry to Grafana Cloud.
+
+### Architecture used in this fork
+
+1. Application services export OTLP to local `otel-collector`.
+2. Local `otel-collector` exports traces, metrics, logs, and profiles to Grafana Cloud.
+3. No local Jaeger/Grafana/Prometheus stack is required when using `start-no-o11y`.
+
+### Grafana Cloud configuration
+
+Update local override file:
+
+```bash
+cp .env.override .env.override.bak
+```
+
+Set these values in `.env.override`:
+
+```dotenv
+OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+GRAFANA_CLOUD_OTLP_ENDPOINT=https://otlp-gateway-<region>.grafana.net/otlp
+GRAFANA_CLOUD_INSTANCE_ID=<your_instance_id>
+GRAFANA_CLOUD_API_TOKEN=<your_glc_token>
+```
+
+Collector cloud exporter is configured in `src/otel-collector/otelcol-config-extras.yml` via:
+
+- `otlp_http/grafana_cloud` exporter
+- `basicauth/grafana_cloud` extension
+- pipeline export for traces/metrics/logs/profiles
+
+### Run commands
+
+Start app without local observability stack:
+
+```bash
+make start-no-o11y
+```
+
+Stop all services:
+
+```bash
+make stop
+```
+
+Check collector logs:
+
+```bash
+docker compose --env-file .env --env-file .env.override -f compose.yaml -f compose.full.yaml -f compose.extras.yaml logs -f otel-collector
+```
+
+
 [![Slack](https://img.shields.io/badge/slack-@cncf/otel/demo-brightgreen.svg?logo=slack)](https://cloud-native.slack.com/archives/C03B4CWV4DA)
 [![Version](https://img.shields.io/github/v/release/open-telemetry/opentelemetry-demo?color=blueviolet)](https://github.com/open-telemetry/opentelemetry-demo/releases)
 [![Commits](https://img.shields.io/github/commits-since/open-telemetry/opentelemetry-demo/latest?color=ff69b4&include_prereleases)](https://github.com/open-telemetry/opentelemetry-demo/graphs/commit-activity)
