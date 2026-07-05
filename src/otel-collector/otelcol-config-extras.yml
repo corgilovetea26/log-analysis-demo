@@ -1,0 +1,41 @@
+# Copyright The OpenTelemetry Authors
+# SPDX-License-Identifier: Apache-2.0
+
+# Extras/customization layer for the OTel Collector.
+# Override this file in your fork to add exporters for your own observability backend.
+#
+# This file is intentionally empty. It is always loaded last, giving forks
+# a stable, well-defined seam to customize without touching upstream files.
+#
+# IMPORTANT: The OTel Collector merges config files but REPLACES arrays, not appends.
+# If you want to keep the default observability stack alongside your own exporters,
+# you must explicitly repeat the upstream exporter names in your pipeline definitions.
+#
+# Upstream exporter names (repeat these to keep them active):
+#   traces:  otlp_grpc/jaeger, debug, span_metrics
+#   metrics: otlp_http/prometheus, debug
+#   logs:    opensearch, debug
+
+exporters:
+  otlp_http/grafana_cloud:
+    endpoint: "${env:GRAFANA_CLOUD_OTLP_ENDPOINT}"
+    auth:
+      authenticator: basicauth/grafana_cloud
+
+extensions:
+  basicauth/grafana_cloud:
+    client_auth:
+      username: "${env:GRAFANA_CLOUD_INSTANCE_ID}"
+      password: "${env:GRAFANA_CLOUD_API_TOKEN}"
+
+service:
+  extensions: [basicauth/grafana_cloud]
+  pipelines:
+    traces:
+      exporters: [debug, span_metrics, otlp_http/grafana_cloud]
+    metrics:
+      exporters: [debug, otlp_http/grafana_cloud]
+    logs:
+      exporters: [debug, otlp_http/grafana_cloud]
+    profiles:
+      exporters: [debug, otlp_http/grafana_cloud]
