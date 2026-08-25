@@ -1,7 +1,7 @@
 # Copyright The OpenTelemetry Authors
 # SPDX-License-Identifier: Apache-2.0
 
-FROM docker.io/library/node:26.3.1-slim@sha256:191ef878ecb351d68b78219593de18bd8942afd59af59f29960dc4b24805a3f1 AS builder
+FROM docker.io/library/node:26.6.0-slim@sha256:80f12a4030a00d8f78ebc4602bc3ef0f984932f498649b8ed3c0a740a6dff4a8 AS builder
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ RUN npm run build
 
 # -----------------------------------------------------------------------------
 
-FROM docker.io/library/node:26.3.1-slim@sha256:191ef878ecb351d68b78219593de18bd8942afd59af59f29960dc4b24805a3f1 AS deps
+FROM docker.io/library/node:26.6.0-slim@sha256:80f12a4030a00d8f78ebc4602bc3ef0f984932f498649b8ed3c0a740a6dff4a8 AS deps
 
 WORKDIR /app
 
@@ -42,7 +42,7 @@ RUN npm ci --omit=dev
 
 # -----------------------------------------------------------------------------
 
-FROM gcr.io/distroless/nodejs24-debian13:nonroot@sha256:34eb2e7dd86129508526b047950308de41663e33d059e19befb0361a12286d7c
+FROM gcr.io/distroless/nodejs24-debian13:nonroot@sha256:ffab599740d4aaa66029d02b9e6d3de4f622fefb7410081c5ef69c86430f364d
 
 WORKDIR /app
 
